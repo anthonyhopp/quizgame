@@ -1,0 +1,2 @@
+It randomly decides which question to ask rather than selecting a new one.
+It isn't adding to the existing score, just 1 for right and 0 for wrong

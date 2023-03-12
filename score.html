@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Score</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div>
+		<h2>Your score:</h2>
+		<p id="score"></p>
+		<button id="continueBtn">Continue</button>
+	</div>
+	<script>
+		const scoreEl = document.getElementById("score");
+		const score = localStorage.getItem("score");
+		scoreEl.innerHTML = score;
+		localStorage.removeItem("score");
+
+		const continueBtn = document.getElementById("continueBtn");
+		continueBtn.onclick = function() {
+			const nextQuestion = parseInt(getQueryParam("q")) + 1;
+			window.location.href = `test.html?q=${nextQuestion}`;
+		};
+
+		function getQueryParam(name) {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get(name);
+		}
+	</script>
+</body>
+</html>
