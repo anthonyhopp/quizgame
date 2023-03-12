@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+      .question {
+        margin-bottom: 20px;
+      }
+      .selection {
+        background-color: yellow;
+      }
+    </style>
+    <script>
+        let qArr = {};
+        const questions = [
+          {
+            question: "What is the capital of France?",
+            options: ["Paris", "Berlin", "London"],
+            answer: 0
+          },
+          {
+            question: "What is the currency of Japan?",
+            options: ["Dollar", "Yuan", "Yen"],
+            answer: 2
+          },
+          {
+            question: "What is the largest planet in the solar system?",
+            options: ["Earth", "Jupiter", "Mars"],
+            answer: 1
+          }
+        ];
+        let currentQuestion = 0;
+        
+        function generateQuestion() {
+  const questionObj = questions[Math.floor(Math.random() * questions.length)];
+  const questionDiv = document.getElementById("question");
+  questionDiv.innerHTML = "";
+  const question = document.createElement("p");
+  question.innerHTML = questionObj.question;
+  questionDiv.appendChild(question);
+  for (let i = 0; i < questionObj.options.length; i++) {
+    const option = document.createElement("input");
+    option.type = "radio";
+    option.name = `q${currentQuestion}`;
+    option.value = i;
+    option.onclick = function() {
+      javascriptFunction(this.value == questionObj.answer, currentQuestion, this);
+    }
+    const label = document.createElement("label");
+    label.for = `q${currentQuestion}`;
+    label.innerHTML = questionObj.options[i];
+    questionDiv.appendChild(option);
+    questionDiv.appendChild(label);
+    questionDiv.appendChild(document.createElement("br"));
+  }
+
+
+          currentQuestion++;
+        }
+        
+        function javascriptFunction(bool, qNum, element) {
+          qArr[qNum] = bool;
+          let parent = element.parentElement;
+          for (let i = 0; i < parent.children.length; i++) {
+            let child = parent.children[i];
+            child.classList.remove("selection");
+          }
+          element.classList.add("selection");
+        }
+        
+        function printResult() {
+          let correct = 0;
+          for (item in qArr) {
+            if (qArr[item] == true) {
+              correct++;
+            }
+          }
+          if (correct == 1) {
+            alert("Correct!");
+          } else {
+            alert("Wrong!");
+          }
+          localStorage.setItem("score", correct);
+          window.location.href = "score.html";
+        }
+      </script>
+</head>
+<body onload="generateQuestion()">
+    <div id="question" class="question"></div>
+    <button onclick="printResult()">Submit</button>
+</body>
+</html>

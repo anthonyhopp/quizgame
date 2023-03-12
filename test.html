@@ -1,95 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Test</title>
     <style>
-      .question {
-        margin-bottom: 20px;
-      }
-      .selection {
-        background-color: yellow;
-      }
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .selection {
+            background-color: yellow;
+        }
     </style>
     <script>
-        let qArr = {};
         const questions = [
-          {
-            question: "What is the capital of France?",
-            options: ["Paris", "Berlin", "London"],
-            answer: 0
-          },
-          {
-            question: "What is the currency of Japan?",
-            options: ["Dollar", "Yuan", "Yen"],
-            answer: 2
-          },
-          {
-            question: "What is the largest planet in the solar system?",
-            options: ["Earth", "Jupiter", "Mars"],
-            answer: 1
-          }
+            {
+                question: "What is the capital of France?",
+                options: ["Paris", "Berlin", "London"],
+                answer: 0,
+            },
+            {
+                question: "What is the currency of Japan?",
+                options: ["Dollar", "Yuan", "Yen"],
+                answer: 2,
+            },
+            {
+                question: "What is the largest planet in the solar system?",
+                options: ["Earth", "Jupiter", "Mars"],
+                answer: 1,
+            },
+            {
+                question: 'Who wrote the novel "To Kill a Mockingbird"?',
+                options: ["Harper Lee", "Ernest Hemingway", "William Faulkner"],
+                answer: 0,
+            },
+            {
+                question: "In what year did the first man walk on the Moon?",
+                options: ["1961", "1969", "1972"],
+                answer: 1,
+            },
+            {
+                question: "What is the capital city of Australia?",
+                options: ["Melbourne", "Canberra", "Sydney"],
+                answer: 1,
+            },
+            {
+                question: "Which country is both the smallest by land area and population?",
+                options: ["Monaco", "Vatican City", "San Marino"],
+                answer: 1,
+            },
+            {
+                question: 'Who directed the movie "Jaws"?',
+                options: ["Steven Spielberg", "Martin Scorsese", "George Lucas"],
+                answer: 0,
+            },
+            {
+                question: 'Which planet in our solar system is known as the "Red Planet"?',
+                options: ["Venus", "Mars", "Jupiter"],
+                answer: 1,
+            },
+            {
+                question: "Who is the founder of Microsoft?",
+                options: ["Steve Jobs", "Bill Gates", "Jeff Bezos"],
+                answer: 1,
+            },
+            {
+                question: "In what year did World War II end?",
+                options: ["1945", "1950", "1939"],
+                answer: 0,
+            },
+            {
+                question: "What is the name of the largest ocean on Earth?",
+                options: ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean"],
+                answer: 0,
+            },
+            {
+                question: 'Who painted the famous artwork "The Mona Lisa"?',
+                options: ["Vincent van Gogh", "Leonardo da Vinci", "Pablo Picasso"],
+                answer: 1,
+            },
+            {
+                question: 'Which country is known as the "Land of the Rising Sun"?',
+                options: ["China", "Japan", "Korea"],
+                answer: 1,
+            },
+            {
+                question: "What is the capital city of Canada?",
+                options: ["Toronto", "Ottawa", "Montreal"],
+                answer: 1,
+            },
+            {
+                question: 'Who wrote the play "Romeo and Juliet"?',
+                options: ["William Shakespeare", "Christopher Marlowe", "John Donne"],
+                answer: 0,
+            },
+            {
+                question: "What is the highest mountain in Africa?",
+                options: ["Mount Everest", "Kilimanjaro", "Mount McKinley"],
+                answer: 1,
+            },
+            {
+                question: 'Who composed the famous classical music piece "The Four Seasons"?',
+                options: ["Wolfgang Amadeus Mozart", "Johann Sebastian Bach", "Antonio Vivaldi"],
+                answer: 2,
+            },
+            {
+                question: "In which country is the city of Venice located?",
+                options: ["Italy", "Spain", "France"],
+                answer: 0,
+            },
+            {
+                question: "What is the name of the river that runs through Egypt?",
+                options: ["Nile River", "Amazon River", "Mississippi River"],
+                answer: 0,
+            },
+            {
+                question: "Who invented the telephone?",
+                options: ["Alexander Graham Bell", "Thomas Edison", "Benjamin Franklin"],
+                answer: 0,
+            },
+            {
+                question: "Which famous physicist developed the theory of relativity?",
+                options: ["Isaac Newton", "Albert Einstein", "Stephen Hawking"],
+                answer: 1,
+            },
+            {
+                question: "What is the name of the highest mountain in the world?",
+                options: ["Mount Kilimanjaro", "Mount Everest", "Mount Fuji"],
+                answer: 1,
+            },
         ];
-        let currentQuestion = 0;
-        
-        function generateQuestion() {
-  const questionObj = questions[Math.floor(Math.random() * questions.length)];
-  const questionDiv = document.getElementById("question");
-  questionDiv.innerHTML = "";
-  const question = document.createElement("p");
-  question.innerHTML = questionObj.question;
-  questionDiv.appendChild(question);
-  for (let i = 0; i < questionObj.options.length; i++) {
-    const option = document.createElement("input");
-    option.type = "radio";
-    option.name = `q${currentQuestion}`;
-    option.value = i;
-    option.onclick = function() {
-      javascriptFunction(this.value == questionObj.answer, currentQuestion, this);
-    }
-    const label = document.createElement("label");
-    label.for = `q${currentQuestion}`;
-    label.innerHTML = questionObj.options[i];
-    questionDiv.appendChild(option);
-    questionDiv.appendChild(label);
-    questionDiv.appendChild(document.createElement("br"));
-  }
+        let qArr = {};
 
-
-          currentQuestion++;
-        }
-        
-        function javascriptFunction(bool, qNum, element) {
-          qArr[qNum] = bool;
-          let parent = element.parentElement;
-          for (let i = 0; i < parent.children.length; i++) {
-            let child = parent.children[i];
-            child.classList.remove("selection");
-          }
-          element.classList.add("selection");
-        }
-        
-        function printResult() {
-          let correct = 0;
-          for (item in qArr) {
-            if (qArr[item] == true) {
-              correct++;
+        function generateQuestions() {
+            const questionDiv = document.getElementById("question");
+            questionDiv.innerHTML = "";
+            for (let i = 0; i < questions.length; i++) {
+                const questionObj = questions[i];
+                const question = document.createElement("p");
+                question.innerHTML = questionObj.question;
+                questionDiv.appendChild(question);
+                for (let j = 0; j < questionObj.options.length; j++) {
+                    const option = document.createElement("input");
+                    option.type = "radio";
+                    option.name = `q${i}`;
+                    option.value = j;
+                    option.onclick = function () {
+                        javascriptFunction(this.value == questionObj.answer, i, this);
+                    };
+                    const label = document.createElement("label");
+                    label.for = `q${i}`;
+                    label.innerHTML = questionObj.options[j];
+                    questionDiv.appendChild(option);
+                    questionDiv.appendChild(label);
+                    questionDiv.appendChild(document.createElement("br"));
+                }
             }
-          }
-          if (correct == 1) {
-            alert("Correct!");
-          } else {
-            alert("Wrong!");
-          }
-          localStorage.setItem("score", correct);
-          window.location.href = "score.html";
         }
-      </script>
+
+        function javascriptFunction(bool, qNum, element) {
+            qArr[qNum] = bool;
+            let parent = element.parentElement;
+            for (let i = 0; i < parent.children.length; i++) {
+                let child = parent.children[i];
+                child.classList.remove("selection");
+            }
+            element.classList.add("selection");
+        }
+
+        function calculateScore() {
+            let correct = 0;
+            for (item in qArr) {
+                if (qArr[item] == true) {
+                    correct++;
+                }
+            }
+            localStorage.setItem("score", correct);
+            alert(`You scored ${correct} out of ${questions.length} questions.`);
+            window.location.href = "score.html";
+        }
+    </script>
 </head>
-<body onload="generateQuestion()">
+
+<body onload="generateQuestions()">
     <div id="question" class="question"></div>
-    <button onclick="printResult()">Submit</button>
+    <button onclick="calculateScore()">Submit</button>
 </body>
+
 </html>
